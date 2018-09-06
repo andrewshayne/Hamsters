@@ -1,0 +1,14 @@
+﻿  World.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\room.h(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\room.h(39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\room.h(40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\room.h(41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(27): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(30): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(309): warning C4477: 'printf' : format string '%i' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(309): note: consider using '%zi' in the format string
+d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(317): warning C4477: 'printf' : format string '%i' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(317): note: consider using '%zi' in the format string
+  NewIdea.vcxproj -> d:\Documents\Visual Studio 2015\Projects\NewIdea\x64\Debug\NewIdea.exe
+  NewIdea.vcxproj -> d:\Documents\Visual Studio 2015\Projects\NewIdea\x64\Debug\NewIdea.pdb (Full PDB)

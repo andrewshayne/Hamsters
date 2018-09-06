@@ -1,0 +1,18 @@
+- elevators
+- intro sequence and occaisonal appearances of Hamson, who warns the player about adopting hamsters as pets
+	- he freezes up the new game menu screen, telling the player about how horrible his people are, then the player is allowed to move him out of the way
+- various hidden attributes/attribute meters that are unlocked with progress (announce when the player's Hamster cage has entered a new stage?)
+- overfeeding, laziness, gluttony: weight attribute, makes the hamster fat and slow
+- racial tensions - higher likeliness hamsters will group with their own breed and exclude others
+- enslavement - more 'powerful' hamsters will take advantage of weaker ones (put them in a hamster wheel to generate their energy!)
+- also give attributes to rooms!!
+- assign percentages to rooms for each breed's dominance of a room. highest percentage indicates who owns this 'turf'
+- clearance status - only hamsters with high enough clearance or other statuses can enter a room! Ex: level 1, level 3, Male only
+- Should all hamsters be immortal?
+	- They could die and dissapear forever
+	- or die and become ghosty hamsters
+	- or die and become zombie hamsters
+- hamsters should have limited/no reproductive capability at the start of a game (to keep population growth under control until the player adds more rooms)
+- hamsters generally become more evil as the game progresses. They player's job is to maintain some level of peace (or strict order!) before they turn on you
+- allow various minigames like the racing idea (once the player builds a circular path of rooms, the game is unlocked and immediately playable)
+	- maybe hamsters place racing bets like horse racing (gambling) (the player could control a hamster and influence the outcome??)

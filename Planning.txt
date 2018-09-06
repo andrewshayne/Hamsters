@@ -1,0 +1,43 @@
+- #1 priority: think of new central game mechanic AND theme
+- make room class/system/etc.
+- make generic hitbox/sprite class(es)
+- work on room connectivity, and matching minimaps!
+- collision system
+	- for now, check an object against every other object?
+	- later, do an upper-right portion of a matrix?
+
+
+simulation game games inspiration:
+- animal crossing
+- spore
+- 
+
+
+TODO:
+- implement rooms
+	- make parent room class
+	- drag and drop gui
+		- add rooms
+		- add hamsters
+		- drag viewing window
+	- contained in some 'home' class, where all hamsters are contained
+
+- implement hamsters
+	- no complex visuals or physics at first, just 'in-room' indicator
+	- allow basic travel to adjacent rooms randomly at short intervals
+
+- racetrack!!
+
+
+- Cells...
+	- portals (null/pts to neighbor cell)
+
+- Overlay
+	- created in World, pass in values...
+		- decide what is dev only/player
+		- funds, hamster count, room count
+	- display window for selected hamster info (dissapears on click)
+	- display window for shop (dismissable)
+	- TO BE CONTINUED...
+
+Should I make an AABB class for everything that has a rect??? This would solve problems involving getting position relative to the center/top-left corner and stuff
