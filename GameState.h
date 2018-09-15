@@ -12,9 +12,9 @@ public:
 	sf::RenderWindow* pWindow;
 
 	virtual void handlePlayerInput(sf::Keyboard::Key key, bool isPressed) = 0;
-	virtual void handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::Vector2i mousePosition) = 0;
+	virtual void handlePlayerInput(sf::Mouse::Button button, bool isPressed, const sf::Vector2i mousePosition) = 0;
 
-	virtual void update(sf::Time dt, sf::Vector2i& mousePosition) = 0;
+	virtual void update(sf::Time dt, const sf::Vector2i& mousePosition) = 0;
 	virtual void draw() = 0;
 
 protected:

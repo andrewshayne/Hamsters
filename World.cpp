@@ -1,7 +1,7 @@
 #include "World.h"
 
 
-World::World(sf::RenderTarget& outputTarget) : target(outputTarget), worldView(outputTarget.getDefaultView()), isHoldingHamster(false), currentlyHoveredHamster(nullptr), currentlyHoveredCell(nullptr)
+World::World(sf::RenderTarget& outputTarget) : target(outputTarget), worldView(outputTarget.getDefaultView()), isAdminMode(false), isHoldingHamster(false), currentlyHoveredHamster(nullptr), currentlyHoveredCell(nullptr)
 {
 	if (!backgroundImage.loadFromFile("Images/trophies.png"))
 	{
@@ -57,13 +57,14 @@ World::~World()
 {
 }
 
-void World::update(sf::Time dt, sf::Vector2i& mousePosition)
+void World::update(sf::Time dt, const sf::Vector2i& mousePosition)
 {
 	bool foundHamster = false;
 	bool foundCell = false;
 	//check every hamster in every room for mouse hover, IF not holding one
 	if (!isHoldingHamster) //make sure no hamster is already being held, display this hamster's stats
 	{
+		/*
 		for (std::unordered_map<std::string,Room*>::iterator it_room = rooms.begin(); it_room != rooms.end(); ++it_room) //iterate over all rooms
 		{
 			for (std::unordered_map<std::string,Cell*>::iterator it_cell = it_room->second->getCells().begin(); it_cell != it_room->second->getCells().end(); ++it_cell) //iterate over cells in room
@@ -83,6 +84,17 @@ void World::update(sf::Time dt, sf::Vector2i& mousePosition)
 				if (foundHamster) break;
 			}
 			if (foundHamster) break;
+		}
+		*/
+
+		for(std::unordered_map<std::string,Hamster*>::iterator it_hamster = hamsters.begin(); it_hamster != hamsters.end(); ++it_hamster)
+		{
+			if(checkMouseHover(mousePosition, it_hamster->second->getHamsterRect()))
+			{
+				currentlyHoveredHamster = it_hamster->second;
+				foundHamster = true;
+				break;
+			}
 		}
 		if (!foundHamster)
 		{
@@ -153,12 +165,18 @@ void World::draw()
 				target.draw(it_cell->second->portalRects[k]);
 			}
 
-			//draw hamsters
-			for (std::unordered_map<std::string,Hamster*>::iterator it = it_cell->second->hamsters.begin(); it != it_cell->second->hamsters.end(); ++it)
-			{
-				target.draw(it->second->getHamsterRect());
-			}
+			/////////////////////draw hamsters
+			//for (std::unordered_map<std::string,Hamster*>::iterator it = it_cell->second->hamsters.begin(); it != it_cell->second->hamsters.end(); ++it)
+			//{
+			//	target.draw(it->second->getHamsterRect());
+			//}
 		}
+	}
+	//draw hamsters
+	for (std::unordered_map<std::string, Hamster*>::iterator it = hamsters.begin(); it != hamsters.end(); ++it)
+	{
+		target.draw(it->second->getHamsterRect());
+		target.draw(it->second->getNameText());
 	}
 
 	//draw portals
@@ -168,6 +186,10 @@ void World::draw()
 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getHamsterWindow()->componentMap.begin(); it != overlay->getHamsterWindow()->componentMap.end(); ++it)
 	{
 		target.draw(it->second->title);
+		if(overlay->getHamsterWindow()->getSelectedHamster() != nullptr) //if hamster is selected, draw stats
+		{
+			//iterate over hamster's stats (should they be ordered?)
+		}
 	}
 
 	target.draw(overlay->getStoreWindow()->getWindowRect());
@@ -177,12 +199,15 @@ void World::draw()
 	}
 
 
-
 	//VIEW - miniunordered_map
 	target.setView(minimapView);
 	target.draw(*backgroundSprite);
 
 	target.setView(worldView);
+
+	if(isAdminMode) //draw admin-only info here
+	{
+	}
 }
 
 int World::getRoomCount()
@@ -198,6 +223,12 @@ void World::addRoom(Room* room)
 	for (std::unordered_map<std::string,Cell*>::iterator it_cell = room->getCells().begin(); it_cell != room->getCells().end(); ++it_cell)
 	{
 		grid[it_cell->second->gridCoordinate.x][it_cell->second->gridCoordinate.y] = it_cell->second;
+
+		//add hamsters to World hamsters map
+		for(std::unordered_map<std::string,Hamster*>::iterator it_hamster = it_cell->second->hamsters.begin(); it_hamster != it_cell->second->hamsters.end(); ++it_hamster)
+		{
+			hamsters[it_hamster->first] = it_hamster->second;
+		}
 	}
 }
 
@@ -277,7 +308,7 @@ bool World::checkCollision(sf::RectangleShape& r1, sf::RectangleShape& r2)
 	return false;
 }
 
-bool World::checkMouseHover(sf::Vector2i& mousePosition, sf::RectangleShape& rect)
+bool World::checkMouseHover(const sf::Vector2i& mousePosition, sf::RectangleShape& rect)
 {
 	if (mousePosition.x > rect.getPosition().x - rect.getSize().x/2
 		&& mousePosition.x < rect.getPosition().x + rect.getSize().x/2

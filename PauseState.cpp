@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-PauseState::PauseState(Game &game, sf::RenderWindow &window) : GameState(game, window), 
+PauseState::PauseState(Game &game, sf::RenderWindow &window) : GameState(game, window),
 	resumeGame(true),
 	select(false)
 {
@@ -39,12 +39,12 @@ void PauseState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 	}
 }
 
-void PauseState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::Vector2i mousePosition)
+void PauseState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, const sf::Vector2i mousePosition)
 {
 
 }
 
-void PauseState::update(sf::Time dt, sf::Vector2i& mousePosition)
+void PauseState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 {
 	if(resumeGame)
 	{

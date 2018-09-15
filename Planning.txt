@@ -10,7 +10,7 @@
 simulation game games inspiration:
 - animal crossing
 - spore
-- 
+-
 
 
 TODO:
@@ -41,3 +41,15 @@ TODO:
 	- TO BE CONTINUED...
 
 Should I make an AABB class for everything that has a rect??? This would solve problems involving getting position relative to the center/top-left corner and stuff
+
+- Find out why hamsters dissapear
+	- (steps to reproduce:
+			- drop hamster outside of cell
+			- drop hamster in cell
+			- pick up hamster again }
+
+- don't do O(n^2) bullshit, just draw from list of Hamster ptrs, etc... [PARTIALLY FIXED]
+	- now has problem where hamsters are drawn outside cell but can't be picked up
+
+- make sure hamster add/delete/other operations ALWAYS modify the cell map AND World map
+

@@ -31,10 +31,10 @@ Room::Room(sf::Vector2i masterCellPosition) : masterCellPosition(masterCellPosit
 	cells[cell1->getKey()] = cell1;
 	cells[cell2->getKey()] = cell2;
 	cells[cell3->getKey()] = cell3;
-	
-	Hamster* hamster1 = new Hamster(sf::Vector2f(0.f,40.f));
-	Hamster* hamster2 = new Hamster(sf::Vector2f(0.f,60.f));
-	Hamster* hamster3 = new Hamster(sf::Vector2f(0.f,80.f));
+
+	Hamster* hamster1 = new Hamster(sf::Vector2f(0.f,40.f), "Hamuel");
+	Hamster* hamster2 = new Hamster(sf::Vector2f(0.f,60.f), "Hamson");
+	Hamster* hamster3 = new Hamster(sf::Vector2f(0.f,80.f), "Hamtaro");
 
 	hamster1->setName(std::to_string(masterCellPosition.x) + "_1");
 	hamster2->setName(std::to_string(masterCellPosition.x) + "_2");
@@ -57,7 +57,7 @@ std::string Room::getKey()
 	return std::to_string(masterCellPosition.x) + std::to_string(masterCellPosition.y);
 }
 
-std::unordered_map<std::string,Cell*>& const Room::getCells()
+std::unordered_map<std::string,Cell*>& Room::getCells()
 {
 	return cells;
 }

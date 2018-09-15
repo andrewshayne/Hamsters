@@ -10,8 +10,9 @@
 class World
 {
 private:
+	bool isAdminMode;
 	InputManager inputManager;
-	
+
 	sf::RenderTarget& target;
 	sf::View worldView;
 	sf::View minimapView; //show where the camera is positioned/zoomed relative to the entire map
@@ -39,7 +40,7 @@ public:
 	explicit World(sf::RenderTarget& outputTarget);
 	~World();
 
-	void update(sf::Time dt, sf::Vector2i& mousePosition);
+	void update(sf::Time dt, const sf::Vector2i& mousePosition);
 	void draw();
 
 	int getRoomCount();
@@ -52,7 +53,7 @@ public:
 	bool checkOverlap(sf::RectangleShape& r1, sf::RectangleShape& r2);
 	bool checkCollision(sf::RectangleShape& r1, sf::RectangleShape& r2);
 
-	bool checkMouseHover(sf::Vector2i& mousePosition,  sf::RectangleShape& rect);
+	bool checkMouseHover(const sf::Vector2i& mousePosition,  sf::RectangleShape& rect);
 	void handleLeftClick();
 	void displayHamsterInfo();
 };

@@ -23,12 +23,12 @@ void MenuState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 	}
 }
 
-void MenuState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::Vector2i mousePosition)
+void MenuState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, const sf::Vector2i mousePosition)
 {
 
 }
 
-void MenuState::update(sf::Time dt, sf::Vector2i& mousePosition)
+void MenuState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 {
 
 }

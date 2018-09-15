@@ -26,7 +26,7 @@ struct Cell
 
 	sf::Vector2i defaultSize;
 	sf::RectangleShape rect;
-	
+
 	//initialize with relative position, 0,0 indicating master
 	Cell(sf::Vector2i cellSize, sf::Vector2i relativePosition, sf::Vector2i masterCellPosition, bool isOutGoingPortal[4], bool isCollidableWall[4]) : defaultSize(cellSize),
 		relativeCoordinate(relativePosition),

@@ -17,3 +17,8 @@ void HamsterWindow::setSelectedHamster(Hamster* hamster)
 {
 	selectedHamster = hamster;
 }
+
+Hamster* HamsterWindow::getSelectedHamster()
+{
+	return selectedHamster;
+}

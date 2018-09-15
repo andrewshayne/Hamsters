@@ -25,7 +25,7 @@ void PlayState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) //for k
 	//world.movePlayer(key, isPressed);
 }
 
-void PlayState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::Vector2i mousePosition) //for mouse input
+void PlayState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, const sf::Vector2i mousePosition) //for mouse input
 {
 	if(button == sf::Mouse::Left)
 	{
@@ -48,7 +48,7 @@ void PlayState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::
 	}
 }
 
-void PlayState::update(sf::Time dt, sf::Vector2i& mousePosition)
+void PlayState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 {
 	world.update(dt, mousePosition);
 }
