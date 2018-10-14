@@ -12,10 +12,21 @@ HamsterWindow* Overlay::getHamsterWindow()
 	return hamsterWindow;
 }
 
-Overlay::Overlay() : position(sf::Vector2f(0.f,300.f)), storeWindowPosition(sf::Vector2f(20.f,20.f)), hamsterWindowPosition(sf::Vector2f(20.f,101.f))
+void Overlay::update()
 {
-	storeWindow = new StoreWindow(sf::Vector2f(position.x + storeWindowPosition.x, position.y + storeWindowPosition.y), sf::Vector2f(60.f, 80.f));
-	hamsterWindow = new HamsterWindow(sf::Vector2f(position.x + hamsterWindowPosition.x, position.y + hamsterWindowPosition.y), sf::Vector2f(240.f, 60.f));
+	//setWindowPosition(hamsterWindow, hamsterWindow->getRelativePosition());
+	//setWindowPosition(hamsterWindow, hamsterWindow->getRelativePosition());
+}
+
+void Overlay::setWindowPosition(UserWindow* userWindow, sf::Vector2f position)
+{
+	userWindow->getWindowRect().setPosition(position);
+}
+
+Overlay::Overlay(sf::Vector2f cellDimensions) : storeWindowPosition(sf::Vector2f((cellDimensions.x / 2) + 12.f, (cellDimensions.y * 3 / 2) + 100.f)), hamsterWindowPosition(sf::Vector2f((cellDimensions.x * 3 / 2) + 12.f, (cellDimensions.y / 2) + (cellDimensions.y * 3) + 100.f))
+{
+	storeWindow = new StoreWindow(storeWindowPosition, sf::Vector2f(cellDimensions.x, cellDimensions.y * 3));
+	hamsterWindow = new HamsterWindow(hamsterWindowPosition, sf::Vector2f(cellDimensions.x * 3, cellDimensions.y));
 }
 
 

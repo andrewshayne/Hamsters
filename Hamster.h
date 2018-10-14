@@ -1,6 +1,8 @@
-#include <SFML/Graphics.hpp>
-
 #include "CollisionBox.h"
+#include "Node.h"
+
+#include <unordered_map>
+#include <iostream>
 
 #pragma once
 
@@ -33,12 +35,21 @@ struct Stats
 class Hamster
 {
 private:
+	Node* currentNode;
+	Node* currentDest;
+	static const float scale;
+	sf::Texture hamsterTexture;
+	sf::Sprite sprite;
+	bool isPathing;
+	int pathCounter;
+	std::vector<Node*> path;
+
 	unsigned points; //this increments somehow, use to tell hamster's LVL
 	Stats stats;
 	std::string name;
 	sf::Text nameText;
+	sf::Font font;
 	sf::Vector2i currentGridPosition;
-	sf::Vector2f position;
 
 	sf::RectangleShape hamsterRect;
 	CollisionBox box;
@@ -46,14 +57,27 @@ private:
 	sf::Time timer;
 
 public:
+	sf::VertexArray vta;
 	Hamster(sf::Vector2f position, std::string name);
+	Hamster(Hamster* hamster, std::string name);
 	~Hamster();
-	void update(sf::Time dt);
+	void update(sf::Time dt, std::unordered_map<sf::Vector2f,Node*>);
 
 	unsigned int getLVL();
 	std::string getName();
 	void setName(std::string name);
 	sf::RectangleShape& getHamsterRect();
 	sf::Text& getNameText();
+	sf::Sprite& getSprite();
+
+	Node* getCurrentNode();
+	Node* getCurrentDest();
+	bool getIsPathing();
+	void setCurrentNode(Node* node);
+	void setCurrentDest(Node* node);
+	void traverse(Node* start, Node* finish);
+	void setPath(std::vector<Node*> path);
+	void clearPath();
+	std::vector<Node*> getPath();
 };
 

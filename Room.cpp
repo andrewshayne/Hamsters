@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+const sf::Vector2f Room::cellDimensions = { 320.f, 180.f };
+
 Room::Room(sf::Vector2i masterCellPosition) : masterCellPosition(masterCellPosition)
 {
 	// this room's shape:
@@ -24,28 +26,13 @@ Room::Room(sf::Vector2i masterCellPosition) : masterCellPosition(masterCellPosit
 	col3[N] = false;
 
 
-	Cell* cell1 = new Cell(cellSize, sf::Vector2i(0, 0), masterCellPosition, out1, out1); //1
-	Cell* cell2 = new Cell(cellSize, sf::Vector2i(1, 0), masterCellPosition, out2, col2); //2
-	Cell* cell3 = new Cell(cellSize, sf::Vector2i(0, 1), masterCellPosition, out3, col3); //3
+	Cell* cell1 = new Cell(cellDimensions, sf::Vector2i(0, 0), masterCellPosition, out1, out1, "Images/tubeL2.png"); //1
+	Cell* cell2 = new Cell(cellDimensions, sf::Vector2i(1, 0), masterCellPosition, out2, col2, "Images/room1.png"); //2
+	Cell* cell3 = new Cell(cellDimensions, sf::Vector2i(0, 1), masterCellPosition, out3, col3, "Images/room1.png"); //3
 
 	cells[cell1->getKey()] = cell1;
 	cells[cell2->getKey()] = cell2;
 	cells[cell3->getKey()] = cell3;
-
-	Hamster* hamster1 = new Hamster(sf::Vector2f(0.f,40.f), "Hamuel");
-	Hamster* hamster2 = new Hamster(sf::Vector2f(0.f,60.f), "Hamson");
-	Hamster* hamster3 = new Hamster(sf::Vector2f(0.f,80.f), "Hamtaro");
-
-	hamster1->setName(std::to_string(masterCellPosition.x) + "_1");
-	hamster2->setName(std::to_string(masterCellPosition.x) + "_2");
-	hamster3->setName(std::to_string(masterCellPosition.x) + "_3");
-
-	std::cout << hamster1->getName() << " " << hamster2->getName() << " " << hamster3->getName() << std::endl;
-
-	cells[cell1->getKey()]->addHamster(hamster1);
-	cells[cell2->getKey()]->addHamster(hamster2);
-	//cells.at(3)->addHamster(hamster3);
-
 }
 
 Room::~Room()
@@ -77,4 +64,3 @@ void Room::connectCells()
 		}
 	}
 }
-

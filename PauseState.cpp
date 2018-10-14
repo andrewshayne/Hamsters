@@ -44,6 +44,10 @@ void PauseState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, con
 
 }
 
+void PauseState::handlePlayerInputScroll(float scrollDelta, const sf::Vector2i mousePosition)
+{
+}
+
 void PauseState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 {
 	if(resumeGame)

@@ -53,3 +53,11 @@ Should I make an AABB class for everything that has a rect??? This would solve p
 
 - make sure hamster add/delete/other operations ALWAYS modify the cell map AND World map
 
+- decide at what level (in the code) to obscure information (such as hamster stats, available/not available rooms for purchase, etc
+	- cut it off at the GUI level??
+
+
+- need to determine Hamster/StoreWindow positions through the overlay, set them there!!! (otherwise they won't be relative to the overlay)
+
+- pass down "parentPosition" through UI components
+	- Overlay -> UserWindow -> WindowComponent

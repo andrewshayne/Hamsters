@@ -11,7 +11,7 @@
 
 using namespace std;
 
-Game::Game() : SCALE(2.f), TIME_PER_FRAME(sf::seconds(1.f/60.f)), RESOLUTION({(unsigned)(320.f * SCALE), (unsigned)(240.f * SCALE)}), window(sf::VideoMode(RESOLUTION.x, RESOLUTION.y), "Hamster Game", sf::Style::Close)
+Game::Game() : SCALE(1.f), TIME_PER_FRAME(sf::seconds(1.f/60.f)), RESOLUTION({(unsigned)(1600.f * SCALE), (unsigned)(900.f * SCALE)}), window(sf::VideoMode(RESOLUTION.x, RESOLUTION.y), "Hamster Game", sf::Style::Close)
 {
 	unique_ptr<MenuState> menuState(new MenuState(*this, this->window));
 	pushState(move(menuState));
@@ -33,6 +33,7 @@ void Game::run()
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
 	//GAME LOOP
+	window.resetGLStates(); // call it if you only draw ImGui. Otherwise not needed.
     while (window.isOpen())
     {
 		sf::Time dt = clock.restart();
@@ -45,6 +46,7 @@ void Game::run()
 		}
 		render();
     }
+	ImGui::SFML::Shutdown();
 }
 
 void Game::pushState(unique_ptr<GameState> state)
@@ -68,6 +70,8 @@ void Game::processInput()
 	sf::Event event;
 	while(window.pollEvent(event)) //necessary for window to process internal events, even if unused by me
 	{
+		ImGui::SFML::ProcessEvent(event);
+
 		//Real-time input, put a function here later
 		switch(event.type)
 		{
@@ -77,21 +81,23 @@ void Game::processInput()
 		case sf::Event::KeyReleased:
 			stateStack.top()->handlePlayerInput(event.key.code, false);
 			break;
+		//case sf::Event::MouseMoved:
+		//	stateStack.top()->handlePlayerInput();
+		//	break;
 		case sf::Event::MouseButtonPressed:
 			stateStack.top()->handlePlayerInput(event.mouseButton.button, true, sf::Mouse::getPosition(window));
+			break;
+		case sf::Event::MouseButtonReleased:
+			stateStack.top()->handlePlayerInput(event.mouseButton.button, false, sf::Mouse::getPosition(window));
 			break;
 		case sf::Event::MouseWheelScrolled:
 			if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
 			{
-				printf("scroll\n");
+				printf("scroll delta: ");
+				std::cout << event.mouseWheelScroll.delta << std::endl;
+				stateStack.top()->handlePlayerInputScroll(event.mouseWheelScroll.delta, sf::Mouse::getPosition()); //get raw Desktop mouse position
 			}
 			break;
-
-			/*
-		case sf::Event::MouseButtonReleased:
-			handlePlayerInput(event.mouseButton.button, false, sf::Mouse::getPosition(window));
-			break;
-			*/
 
 			//close window
 		case sf::Event::Closed:
@@ -107,8 +113,6 @@ void Game::processInput()
 void Game::update(sf::Time dt)
 {
 	stateStack.top()->update(dt, sf::Mouse::getPosition(window));
-
-	//world.update();
 }
 
 void Game::render()

@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 
+#include "Hamster.h"
+#include "Room.h"
+
 #include <unordered_map>
 
 #pragma once
@@ -27,10 +30,13 @@ class UserWindow
 {
 private:
 	sf::RectangleShape windowRect;
+	sf::Vector2f relativePosition;
 public:
 	UserWindow(sf::Vector2f position, sf::Vector2f size);
 
 	sf::RectangleShape& getWindowRect();
-	std::unordered_map<std::string, WindowComponent*> componentMap;
+	std::unordered_map<std::string, WindowComponent*> components;
+	sf::Vector2f getRelativePosition();
+	virtual void update() = 0;
 };
 

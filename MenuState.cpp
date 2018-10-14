@@ -21,11 +21,16 @@ void MenuState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		unique_ptr<PlayState> playState(new PlayState(*pGame, *pWindow));
 		pGame->pushState(move(playState));
 	}
+
 }
 
 void MenuState::handlePlayerInput(sf::Mouse::Button button, bool isPressed, const sf::Vector2i mousePosition)
 {
 
+}
+
+void MenuState::handlePlayerInputScroll(float scrollDelta, const sf::Vector2i mousePosition)
+{
 }
 
 void MenuState::update(sf::Time dt, const sf::Vector2i& mousePosition)

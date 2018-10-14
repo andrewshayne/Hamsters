@@ -8,7 +8,7 @@ private:
 	// needs to have:
 	// funds
 	// drag and drop purchase
-	sf::Vector2f position;
+	sf::Vector2f cellDimensions;
 	sf::Vector2f storeWindowPosition;
 	sf::Vector2f hamsterWindowPosition;
 
@@ -17,7 +17,10 @@ private:
 public:
 	StoreWindow* getStoreWindow();
 	HamsterWindow* getHamsterWindow();
-	Overlay();
+
+	void update();
+	void setWindowPosition(UserWindow* userWindow, sf::Vector2f position);
+	Overlay(sf::Vector2f cellDimensions);
 	~Overlay();
 };
 

@@ -16,3 +16,16 @@
 - hamsters generally become more evil as the game progresses. They player's job is to maintain some level of peace (or strict order!) before they turn on you
 - allow various minigames like the racing idea (once the player builds a circular path of rooms, the game is unlocked and immediately playable)
 	- maybe hamsters place racing bets like horse racing (gambling) (the player could control a hamster and influence the outcome??)
+
+- apophenia: making connections between things that aren't really relevant (painting a narrative that isn't there)
+
+
+sim game design
+https://www.gamasutra.com/blogs/TynanSylvester/20130602/193462/The_Simulation_Dream.php
+
+interface design
+http://www.art.net/~hopkins/Don/simcity/WillWright.html
+
+- game is an easter egg hunt (maybe another time)
+
+-
