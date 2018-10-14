@@ -1,4 +1,5 @@
 #include "World.h"
+#include <math.h>
 
 
 World::World(sf::RenderTarget& outputTarget) : target(outputTarget), worldView(outputTarget.getDefaultView()), isAdminMode(false), isHoldingHamster(false),
@@ -214,6 +215,35 @@ void World::update(sf::Time dt, const sf::Vector2i& mousePos)
 	else
 	{
 	}
+
+
+
+
+	sf::Color bgColor;
+	float color[3] = {0.f,0.f,0.f};
+	char windowTitle[255] = "hiiiiiii";
+
+        ImGui::Begin("Sample window"); // begin window
+
+                                       // Background color edit
+        if (ImGui::ColorEdit3("Background color", color)) {
+            // this code gets called if color value changes, so
+            // the background color is upgraded automatically!
+            bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
+            bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
+            bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
+        }
+
+        // Window title text edit
+        ImGui::InputText("Window title", windowTitle, 255);
+
+        if (ImGui::Button("Update window title")) {
+            // this code gets if user clicks on the button
+            // yes, you could have written if(ImGui::InputText(...))
+            // but I do this to show how buttons work :)
+            // window.setTitle(windowTitle);
+        }
+        ImGui::End(); // end window
 }
 
 void World::draw()
@@ -251,7 +281,7 @@ void World::draw()
 	//draw hamsters
 	for (std::unordered_map<std::string, Hamster*>::iterator it = hamsters.begin(); it != hamsters.end(); ++it)
 		drawHamster(it->second, true);
-	
+
 	//draw portals
 
 
@@ -327,7 +357,7 @@ std::vector<Node*> World::A_Star(Node* start, Node* finish)
 	std::unordered_map<sf::Vector2f,Node*> openSet{ { start->circle.getPosition(), start } }; //set of currently discovered nodes not evaluated
 
 	//for each node, which node it can be most efficiently reached from, cameFrom will eventually contain the most efficient prev step
-	std::unordered_map<Node*,Node*> cameFrom{ }; 
+	std::unordered_map<Node*,Node*> cameFrom{ };
 	std::unordered_map<Node*, float> gScore; //map all existing nodes on map to a gScore
 	std::unordered_map<Node*, float> fScore; //map all existing nodes on map to a fScore
 

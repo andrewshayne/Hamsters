@@ -1,4 +1,5 @@
 #include "Hamster.h"
+#include <math.h>
 
 
 const float Hamster::scale = 0.2f;
@@ -45,7 +46,7 @@ Hamster::Hamster(Hamster* hamster, std::string name) : points(1000), name(name),
 	nameText.setOutlineThickness(2.f);
 	nameText.setOutlineColor(sf::Color::Black);
 	nameText.setOrigin(nameText.getLocalBounds().width / 2.f, 0.f);
-	
+
 	hamsterTexture.loadFromFile("Images/hamster1.png");
 	sprite.setScale(scale, scale);
 	sprite.setTexture(hamsterTexture);

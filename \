@@ -20,7 +20,6 @@ Game::Game() : SCALE(1.f), TIME_PER_FRAME(sf::seconds(1.f/60.f)), RESOLUTION({(u
 	window.setKeyRepeatEnabled(false);
 	//window.setFramerateLimit(60);
 	window.setView(window.getDefaultView());
-	ImGui::SFML::Init(window);
 }
 
 
@@ -33,6 +32,7 @@ void Game::run()
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
+	ImGui::SFML::Init(window);
 
 
 	//GAME LOOP
@@ -41,17 +41,11 @@ void Game::run()
     {
 		sf::Time dt = clock.restart();
 		timeSinceLastUpdate += dt;
-		ImGui::SFML::Update(window, timeSinceLastUpdate);
 		while(timeSinceLastUpdate > TIME_PER_FRAME)
 		{
 			timeSinceLastUpdate -= TIME_PER_FRAME;
 			processInput();
 			update(TIME_PER_FRAME);
-
-			ImGui::Begin("hiiiii");
-			ImGui::Button("looook");
-			ImGui::End();
-
 		}
 		render();
     }
@@ -121,14 +115,20 @@ void Game::processInput()
 
 void Game::update(sf::Time dt)
 {
-
+	ImGui::SFML::Update(window, dt);
 	stateStack.top()->update(dt, sf::Mouse::getPosition(window));
+
+	ImGui::Begin("hiiiii");
+	ImGui::Button("looook");
+	ImGui::End();
+
 }
 
 void Game::render()
 {
 	//window.setView(window.getDefaultView());
 	stateStack.top()->draw();
+	ImGui::EndFrame();
 	ImGui::SFML::Render(window);
 	window.display();
 }
