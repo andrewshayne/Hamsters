@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include <unordered_map>
+
 #pragma once
 
 namespace std {
@@ -12,6 +14,14 @@ namespace std {
 	};
 }
 
+struct Stats
+{
+	int food;	//describes the food level at this node
+	int water;	//"				water "
+	int fun;	//"				fun   "
+	std::unordered_map<std::string,int> factionTurfScore; //<factionName,turfScore> : shows how much turf every faction owns on this node
+};
+
 class Node
 {
 public:
@@ -19,11 +29,13 @@ public:
 	//hold a bunch of stats at a Node that cells and the room can average/calculate?
 	sf::Vector2f relativeCellPosition; //position relative to the centroid of the cell (0,0)
 	sf::CircleShape circle;
+	sf::CircleShape highlightCircle;
+	std::string roomKey;
 	std::vector<Node*> neighbors;
 
 	//vector of pairs(?) of <Node*, OutgoingAnimationState&, ...>
 
-	Node(sf::Vector2f cellPosition, sf::Vector2f relPosition);
+	Node(sf::Vector2f cellPosition, sf::Vector2f relPosition, std::string roomKey);
 	~Node();
 
 	std::string getKey();

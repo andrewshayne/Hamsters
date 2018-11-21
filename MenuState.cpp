@@ -38,6 +38,10 @@ void MenuState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 
 }
 
+void MenuState::guiUpdate()
+{
+}
+
 void MenuState::draw()
 {
 	sf::RenderWindow &window = *pWindow;

@@ -2,11 +2,12 @@
 #include "Node.h"
 
 #include <unordered_map>
+#include <math.h>
 #include <iostream>
 
 #pragma once
 
-struct Stats
+struct HamsterStats
 {
 
 	//intention is to have: (all from various LVLs)
@@ -21,14 +22,28 @@ struct Stats
 	//meter - just list all viable options now, some values will be dependent
 
 	//basic stats
-	unsigned int hunger;
-	unsigned int thirst;
-	unsigned int happiness;
-	unsigned int obesity;
-	unsigned int intelligence;
-	unsigned int evil;
+	int hunger;
+	int thirst;
+	int happiness;
+	int obesity;
+	int intelligence;
+	int evil;
+	
+	std::vector<std::string> factionNames; //list of factions this hamster is part of
+	std::unordered_map<std::string, int> affection; //<hamsterName,affectionScore> : shows how fond of each hamster this hamster is
 
 	//calculated stats
+
+
+	HamsterStats()
+	{
+		hunger = 0;
+		thirst = 0;
+		happiness = 0;
+		obesity = 0;
+		intelligence = 0;
+		evil = 0;
+	}
 
 };
 
@@ -42,10 +57,11 @@ private:
 	sf::Sprite sprite;
 	bool isPathing;
 	int pathCounter;
+	std::string roomKey;
 	std::vector<Node*> path;
 
 	unsigned points; //this increments somehow, use to tell hamster's LVL
-	Stats stats;
+	HamsterStats stats;
 	std::string name;
 	sf::Text nameText;
 	sf::Font font;
@@ -57,6 +73,7 @@ private:
 	sf::Time timer;
 
 public:
+	bool updateRoomKey;
 	sf::VertexArray vta;
 	Hamster(sf::Vector2f position, std::string name);
 	Hamster(Hamster* hamster, std::string name);
@@ -69,12 +86,14 @@ public:
 	sf::RectangleShape& getHamsterRect();
 	sf::Text& getNameText();
 	sf::Sprite& getSprite();
+	HamsterStats& getStats();
 
 	Node* getCurrentNode();
 	Node* getCurrentDest();
 	bool getIsPathing();
 	void setCurrentNode(Node* node);
 	void setCurrentDest(Node* node);
+	void setRoomKey(std::string roomKey);
 	void traverse(Node* start, Node* finish);
 	void setPath(std::vector<Node*> path);
 	void clearPath();

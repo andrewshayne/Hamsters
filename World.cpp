@@ -1,5 +1,4 @@
 #include "World.h"
-#include <math.h>
 
 
 World::World(sf::RenderTarget& outputTarget) : target(outputTarget), worldView(outputTarget.getDefaultView()), isAdminMode(false), isHoldingHamster(false),
@@ -215,39 +214,56 @@ void World::update(sf::Time dt, const sf::Vector2i& mousePos)
 	else
 	{
 	}
+}
+
+void World::guiUpdate()
+{
+	ImGui::Begin("hi1");
+
+	//Display Hamster Info
+	if (!(currentlyHoveredHamster != nullptr && isHoldingHamster))
+		ImGui::Text("Currently selected hamster: None");
+	else
+	{
+		ImGui::Text(("Currently selected hamster: " + currentlyHoveredHamster->getName()).c_str());
+
+		ImGui::BulletText( ("Hunger: " + std::to_string(currentlyHoveredHamster->getStats().hunger)).c_str() );
+		ImGui::BulletText( ("Thirst: " + std::to_string(currentlyHoveredHamster->getStats().thirst)).c_str() );
+		ImGui::BulletText( ("Happiness: " + std::to_string(currentlyHoveredHamster->getStats().happiness)).c_str() );
+		ImGui::BulletText( ("Evil: " + std::to_string(currentlyHoveredHamster->getStats().evil)).c_str() );
+	}
+
+	//Display Room Info
+	if (currentlyHoveredCell == nullptr)
+		ImGui::Text("Currently hovered room: None");
+	else
+	{
+		ImGui::Text(("Currently hovered room: " + currentlyHoveredCell->parentKey).c_str());
+		ImGui::BulletText( ("Position: " + (currentlyHoveredCell->gridKey)).c_str() );
+		ImGui::BulletText( ("Relative position to parent cell: " + (currentlyHoveredCell->getRelativeKey())).c_str() );
+		//ImGui::BulletText( ("Grid Position: " + (currentlyHoveredCell->parentKey)).c_str() );
+		//ImGui::BulletText( ("Grid Position: " + std::to_string(currentlyHoveredCell->getStats().hunger)).c_str() );
+		//ImGui::BulletText( ("Thirst: " + std::to_string(currentlyHoveredHamster->getStats().thirst)).c_str() );
+		//ImGui::BulletText( ("Happiness: " + std::to_string(currentlyHoveredHamster->getStats().happiness)).c_str() );
+		//ImGui::BulletText( ("Evil: " + std::to_string(currentlyHoveredHamster->getStats().evil)).c_str() );
+	}
 
 
+	ImGui::End();
 
-
-	sf::Color bgColor;
-	float color[3] = {0.f,0.f,0.f};
-	char windowTitle[255] = "hiiiiiii";
-
-        ImGui::Begin("Sample window"); // begin window
-
-                                       // Background color edit
-        if (ImGui::ColorEdit3("Background color", color)) {
-            // this code gets called if color value changes, so
-            // the background color is upgraded automatically!
-            bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
-            bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
-            bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
-        }
-
-        // Window title text edit
-        ImGui::InputText("Window title", windowTitle, 255);
-
-        if (ImGui::Button("Update window title")) {
-            // this code gets if user clicks on the button
-            // yes, you could have written if(ImGui::InputText(...))
-            // but I do this to show how buttons work :)
-            // window.setTitle(windowTitle);
-        }
-        ImGui::End(); // end window
+	ImGui::ShowDemoWindow();
 }
 
 void World::draw()
 {
+				sf::Text t;
+				t.setPosition(20, 20);
+				t.setCharacterSize(60.f);
+				t.setFillColor(sf::Color::White);
+				t.setString("mouse: " + std::to_string(((sf::Vector2i)target.mapPixelToCoords(sf::Mouse::getPosition())).x) + std::to_string(((sf::Vector2i)target.mapPixelToCoords(sf::Mouse::getPosition())).y));
+				target.draw(t);
+
+
 	//Background
 	target.clear();
 	target.setView(worldView);
@@ -265,6 +281,9 @@ void World::draw()
 		{
 			//target.draw(it_cell->second->rect);
 			target.draw(it_cell->second->getSprite());
+			if (it_cell->second == currentlyHoveredCell)
+				target.draw(it_cell->second->rect);
+
 			//draw 4 doors
 			for (int k = 0; k < 4; ++k)
 			{
@@ -272,7 +291,12 @@ void World::draw()
 					it_cell->second->portalRects[k].setFillColor(sf::Color::Green);
 				target.draw(it_cell->second->portalRects[k]);
 			}
-			target.draw(it_cell->second->getDestinationNode()->circle);
+			if (checkMouseHover((sf::Vector2i)target.mapPixelToCoords(sf::Mouse::getPosition()), it_cell->second->getDestinationNode()->circle))
+				target.draw(it_cell->second->getDestinationNode()->circle);
+			if (checkMouseHover((sf::Vector2i)target.mapPixelToCoords(sf::Mouse::getPosition()), it_cell->second->getDestinationNode()->highlightCircle))
+			{
+				target.draw(it_cell->second->getDestinationNode()->highlightCircle);
+			}
 
 			it_cell->second->hamsterCountText.setString(std::to_string(it_cell->second->hamsters.size()));
 			target.draw(it_cell->second->hamsterCountText);
@@ -285,25 +309,25 @@ void World::draw()
 	//draw portals
 
 
+//////  DISGUSTING
+//////
+////// 	//VIEW - overlay
+////// 	target.setView(overlayView);
+////// 	target.draw(overlay->getHamsterWindow()->getWindowRect());
+////// 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getHamsterWindow()->components.begin(); it != overlay->getHamsterWindow()->components.end(); ++it)
+////// 	{
+////// 		target.draw(it->second->title);
+////// 		if(overlay->getHamsterWindow()->getSelectedHamster() != nullptr) //if hamster is selected, draw stats
+////// 			target.draw(overlay->getHamsterWindow()->getSelectedHamster()->getNameText()); //iterate over hamster's stats (should they be ordered?)
+////// 	}
+////// 	target.draw(overlay->getStoreWindow()->getWindowRect());
+////// 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getStoreWindow()->components.begin(); it != overlay->getStoreWindow()->components.end(); ++it)
+////// 		target.draw(it->second->title);
+////// 	//purchasables on store window INSTEAD OF the component...
+////// 	for (std::vector<Purchasable>::const_iterator it = overlay->getStoreWindow()->getPurchasableHamsters().begin(); it != overlay->getStoreWindow()->getPurchasableHamsters().end(); ++it)
+////// 		drawHamster((Hamster*)it->purchasableObject, false);
 
-	//VIEW - overlay
-	target.setView(overlayView);
-	target.draw(overlay->getHamsterWindow()->getWindowRect());
-	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getHamsterWindow()->components.begin(); it != overlay->getHamsterWindow()->components.end(); ++it)
-	{
-		target.draw(it->second->title);
-		if(overlay->getHamsterWindow()->getSelectedHamster() != nullptr) //if hamster is selected, draw stats
-			target.draw(overlay->getHamsterWindow()->getSelectedHamster()->getNameText()); //iterate over hamster's stats (should they be ordered?)
-	}
-	target.draw(overlay->getStoreWindow()->getWindowRect());
-	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getStoreWindow()->components.begin(); it != overlay->getStoreWindow()->components.end(); ++it)
-		target.draw(it->second->title);
-	//purchasables on store window INSTEAD OF the component...
-	for (std::vector<Purchasable>::const_iterator it = overlay->getStoreWindow()->getPurchasableHamsters().begin(); it != overlay->getStoreWindow()->getPurchasableHamsters().end(); ++it)
-		drawHamster((Hamster*)it->purchasableObject, false);
 
-	//target.draw(hoverHamsterText);
-	//target.draw(hoverCellText);
 	target.draw(moneyText);
 
 
@@ -311,6 +335,17 @@ void World::draw()
 	//VIEW - minimap
 	target.setView(minimapView);
 	target.draw(*backgroundSprite);
+
+	//draw rooms
+	for (std::unordered_map<std::string,Room*>::iterator it_room = rooms.begin(); it_room != rooms.end(); ++it_room)
+	{
+		for (std::unordered_map<std::string, Cell*>::iterator it_cell = it_room->second->getCells().begin(); it_cell != it_room->second->getCells().end(); ++it_cell)
+		{
+			target.draw(it_cell->second->getSprite());
+			if (it_cell->second == currentlyHoveredCell)
+				target.draw(it_cell->second->rect);
+		}
+	}
 	target.draw(viewRect);
 
 	target.setView(worldView);
@@ -592,6 +627,14 @@ bool World::checkMouseHover(const sf::Vector2i& mousePosition, sf::RectangleShap
 	// 	&& mousePosition.y < rect.getPosition().y + rect.getSize().y)
 	// 	return true;
 	// return false;
+}
+
+bool World::checkMouseHover(const sf::Vector2i& mousePosition, sf::CircleShape& circle)
+{
+	if (  sqrt((mousePosition.x - circle.getPosition().x) * (mousePosition.x - circle.getPosition().x)
+		+ (mousePosition.y - circle.getPosition().y) * (mousePosition.y - circle.getPosition().y)) < circle.getRadius())
+		return true;
+	return false;
 }
 
 void World::handleLeftClick(bool isPressed, const sf::Vector2i& mousePosition)

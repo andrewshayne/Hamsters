@@ -50,6 +50,11 @@ void PlayState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 	world.update(dt, mousePosition);
 }
 
+void PlayState::guiUpdate()
+{
+	world.guiUpdate();
+}
+
 void PlayState::draw()
 {
 	sf::RenderWindow &window = *pWindow;

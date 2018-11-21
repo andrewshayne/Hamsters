@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+
+
 // be sure to #include <Windows.h> .. at least temporarily
 
 
@@ -21,6 +23,7 @@ Game::Game() : SCALE(1.f), TIME_PER_FRAME(sf::seconds(1.f/60.f)), RESOLUTION({(u
 	//window.setFramerateLimit(60);
 	window.setView(window.getDefaultView());
 	ImGui::SFML::Init(window);
+	window.resetGLStates(); // call it if you only draw ImGui. Otherwise not needed.
 }
 
 
@@ -36,7 +39,6 @@ void Game::run()
 
 
 	//GAME LOOP
-	window.resetGLStates(); // call it if you only draw ImGui. Otherwise not needed.
     while (window.isOpen())
     {
 		sf::Time dt = clock.restart();
@@ -47,12 +49,8 @@ void Game::run()
 			timeSinceLastUpdate -= TIME_PER_FRAME;
 			processInput();
 			update(TIME_PER_FRAME);
-
-			ImGui::Begin("hiiiii");
-			ImGui::Button("looook");
-			ImGui::End();
-
 		}
+		guiUpdate();
 		render();
     }
 	ImGui::SFML::Shutdown();
@@ -101,11 +99,7 @@ void Game::processInput()
 			break;
 		case sf::Event::MouseWheelScrolled:
 			if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
-			{
-				printf("scroll delta: ");
-				std::cout << event.mouseWheelScroll.delta << std::endl;
 				stateStack.top()->handlePlayerInputScroll(event.mouseWheelScroll.delta, sf::Mouse::getPosition()); //get raw Desktop mouse position
-			}
 			break;
 
 			//close window
@@ -121,8 +115,12 @@ void Game::processInput()
 
 void Game::update(sf::Time dt)
 {
-
 	stateStack.top()->update(dt, sf::Mouse::getPosition(window));
+}
+
+void Game::guiUpdate()
+{
+	stateStack.top()->guiUpdate();
 }
 
 void Game::render()

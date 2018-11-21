@@ -1,10 +1,9 @@
 #include "Hamster.h"
-#include <math.h>
 
 
 const float Hamster::scale = 0.2f;
 
-Hamster::Hamster(sf::Vector2f position, std::string name) : points(1000), name(name), pathCounter(-1), isPathing(false)
+Hamster::Hamster(sf::Vector2f position, std::string name) : points(1000), name(name), pathCounter(-1), isPathing(false), roomKey(""), updateRoomKey(false)
 {
 	hamsterRect.setSize(sf::Vector2f(320.f * scale, 320.f * scale));
 	hamsterRect.setPosition(position);
@@ -31,7 +30,7 @@ Hamster::Hamster(sf::Vector2f position, std::string name) : points(1000), name(n
 }
 
 //copy + new name constructor
-Hamster::Hamster(Hamster* hamster, std::string name) : points(1000), name(name), pathCounter(-1), isPathing(false)
+Hamster::Hamster(Hamster* hamster, std::string name) : points(1000), name(name), pathCounter(-1), isPathing(false), roomKey(""), updateRoomKey(false)
 {
 	hamsterRect.setSize(sf::Vector2f(320.f * scale, 320.f * scale));
 	hamsterRect.setPosition(hamster->getHamsterRect().getPosition());
@@ -87,15 +86,14 @@ void Hamster::update(sf::Time dt, std::unordered_map<sf::Vector2f,Node*>)
 		{
 			pathCounter--;
 			currentNode = currentDest;
+			roomKey = currentNode->roomKey; //if not nullptr? (it shouldn't be)
+			updateRoomKey = true;
 			if(pathCounter >= 0)
 				currentDest = path.at(pathCounter);
 		}
 	}
 	else if(path.size() > 0 && pathCounter < 0) //need a new dest!
-	{
 		clearPath();
-		std::cout << "clear path, size: " << path.size() << std::endl;
-	}
 	sprite.setPosition(hamsterRect.getPosition());
 	nameText.setPosition(hamsterRect.getPosition().x, hamsterRect.getPosition().y - 50.f); //update text pos to rect pos
 }
@@ -125,6 +123,11 @@ sf::Sprite& Hamster::getSprite()
 	return sprite;
 }
 
+HamsterStats & Hamster::getStats()
+{
+	return stats;
+}
+
 Node* Hamster::getCurrentNode()
 {
 	return currentNode;
@@ -148,6 +151,11 @@ void Hamster::setCurrentNode(Node * node)
 void Hamster::setCurrentDest(Node * node)
 {
 	currentDest = node;
+}
+
+void Hamster::setRoomKey(std::string roomKey)
+{
+	this->roomKey = roomKey;
 }
 
 void Hamster::traverse(Node* start, Node* finish)

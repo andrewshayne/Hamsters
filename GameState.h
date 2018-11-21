@@ -16,6 +16,7 @@ public:
 	virtual void handlePlayerInputScroll(float scrollDelta, const sf::Vector2i mousePosition) = 0;
 
 	virtual void update(sf::Time dt, const sf::Vector2i& mousePosition) = 0;
+	virtual void guiUpdate() = 0;
 	virtual void draw() = 0;
 
 protected:

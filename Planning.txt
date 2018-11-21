@@ -61,3 +61,5 @@ Should I make an AABB class for everything that has a rect??? This would solve p
 
 - pass down "parentPosition" through UI components
 	- Overlay -> UserWindow -> WindowComponent
+
+- understand that cells are ONLY graphical, laying out rooms on a grid. Rooms have nodes, which can be anywhere within the room, but they are not importantly attached to cells!!

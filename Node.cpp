@@ -3,12 +3,21 @@
 #include <iostream>
 
 
-Node::Node(sf::Vector2f cellPosition, sf::Vector2f relPosition)
+Node::Node(sf::Vector2f cellPosition, sf::Vector2f relPosition, std::string roomKey)
 {
 	circle.setFillColor(sf::Color::Green);
-	circle.setRadius(8.f);
+	circle.setRadius(6.f);
 	circle.setPosition(cellPosition.x + relativeCellPosition.x, cellPosition.y + relativeCellPosition.y);
 	circle.setOrigin(circle.getRadius(), circle.getRadius());
+
+	highlightCircle.setFillColor(sf::Color::Transparent);
+	highlightCircle.setOutlineColor(sf::Color::Black);
+	highlightCircle.setOutlineThickness(20.f);
+	highlightCircle.setRadius(120.f);
+	highlightCircle.setPosition(cellPosition.x + relativeCellPosition.x, cellPosition.y + relativeCellPosition.y);
+	highlightCircle.setOrigin(highlightCircle.getRadius(), highlightCircle.getRadius());
+
+	this->roomKey = roomKey;
 	getKey();
 }
 

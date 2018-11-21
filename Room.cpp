@@ -30,9 +30,9 @@ Room::Room(sf::Vector2i masterCellPosition) : masterCellPosition(masterCellPosit
 	Cell* cell2 = new Cell(cellDimensions, sf::Vector2i(1, 0), masterCellPosition, out2, col2, "Images/room1.png"); //2
 	Cell* cell3 = new Cell(cellDimensions, sf::Vector2i(0, 1), masterCellPosition, out3, col3, "Images/room1.png"); //3
 
-	cells[cell1->getKey()] = cell1;
-	cells[cell2->getKey()] = cell2;
-	cells[cell3->getKey()] = cell3;
+	cells[cell1->getRelativeKey()] = cell1;
+	cells[cell2->getRelativeKey()] = cell2;
+	cells[cell3->getRelativeKey()] = cell3;
 }
 
 Room::~Room()

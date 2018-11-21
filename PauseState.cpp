@@ -68,6 +68,10 @@ void PauseState::update(sf::Time dt, const sf::Vector2i& mousePosition)
 	}
 }
 
+void PauseState::guiUpdate()
+{
+}
+
 void PauseState::draw()
 {
 	//transparent overlay and "pause"

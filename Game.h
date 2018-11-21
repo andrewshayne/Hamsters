@@ -25,6 +25,7 @@ private:
 private:
 	void processInput();
 	void update(sf::Time dt);
+	void guiUpdate();
 	void render();
 
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);

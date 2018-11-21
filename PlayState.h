@@ -19,6 +19,7 @@ public:
 	void handlePlayerInputScroll(float scrollDelta, const sf::Vector2i mousePosition);
 
 	void update(sf::Time dt, const sf::Vector2i& mousePosition);
+	void guiUpdate();
 	void draw();
 };
 

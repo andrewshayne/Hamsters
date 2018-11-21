@@ -1,5 +1,5 @@
-#include "imgui.h"
-#include "imgui-SFML.h"
+//#include "imgui.h"
+//#include "imgui-SFML.h"
 
 #include "Room.h"
 #include "Hamster.h"
@@ -8,6 +8,10 @@
 #include "Overlay.h"
 
 #include <stdlib.h>
+#include <math.h>
+
+#include "imgui.h"
+#include "imgui-sfml.h"
 
 #pragma once
 class World
@@ -47,6 +51,7 @@ private:
 	Room* room3;
 	std::unordered_map<std::string,Room*> rooms; //change this to map, use "XY" coords as key?
 	std::unordered_map<std::string,Hamster*> hamsters;
+	std::unordered_map<std::string,std::vector<Hamster*>> factions; //<factionName,hamsters> : maps faction name to a hamster* vector
 
 	bool isHoldingHamster;
 	Hamster* currentlyHoveredHamster;
@@ -64,6 +69,7 @@ public:
 	std::vector<Node*> A_Star(Node* start, Node* finish);
 
 	void update(sf::Time dt, const sf::Vector2i& mousePos);
+	void guiUpdate();
 	void draw();
 	void drawHamster(Hamster* hamster, bool isPurchased);
 
@@ -92,6 +98,7 @@ public:
 	bool checkCollision(sf::RectangleShape& r1, sf::RectangleShape& r2);
 
 	bool checkMouseHover(const sf::Vector2i& mousePosition, sf::RectangleShape& rect);
+	bool checkMouseHover(const sf::Vector2i& mousePosition, sf::CircleShape& circle);
 	void handleLeftClick(bool isPressed, const sf::Vector2i& mousePosition);
 	void handleRightClick(bool isPressed, const sf::Vector2i& mousePosition);
 	void handleScroll(float scrollDelta, const sf::Vector2i& mousePosition);

@@ -1,2 +1,72 @@
-﻿  Main.cpp
-sfml-graphics.lib(sfml-graphics-2.dll) : fatal error LNK1112: module machine type 'x64' conflicts with target machine type 'X86'
+﻿  CollisionBox.cpp
+  Hamster.cpp
+Hamster.cpp(17): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+Hamster.cpp(44): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+Hamster.cpp(164): warning C4018: '<': signed/unsigned mismatch
+  HamsterWindow.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  imgui-SFML.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_widgets.cpp
+  Node.cpp
+  Overlay.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  StoreWindow.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  UserWindow.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ViewManager.cpp
+  World.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+World.cpp(9): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+World.cpp(35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+World.cpp(39): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+World.cpp(42): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+World.cpp(83): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+World.cpp(89): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+World.cpp(94): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+World.cpp(257): warning C4018: '<': signed/unsigned mismatch
+World.cpp(346): warning C4018: '<': signed/unsigned mismatch
+  Game.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameState.cpp
+  InputManager.cpp
+  Main.cpp
+  MenuState.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  PauseState.cpp
+  Compiling...
+  PlayState.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Room.cpp
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\documents\visual studio 2015\projects\newidea\newidea\Room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+LINK : fatal error LNK1181: cannot open input file '.obj'

@@ -17,6 +17,9 @@ struct Cell
 	Node* destination;
 	std::vector<Node*> waypoints;
 
+	sf::Vector2i parentCoordinate;
+	std::string parentKey;
+	std::string gridKey;
 	sf::Vector2i relativeCoordinate; //0,0 for master cell
 	sf::Vector2i gridCoordinate;
 	//need to know if cells are linked to eachother in a room or connected to another room!!
@@ -37,11 +40,11 @@ struct Cell
 	sf::Text hamsterCountText;
 	//initialize with relative position, 0,0 indicating master
 	Cell(sf::Vector2f cellSize, sf::Vector2i relativePosition, sf::Vector2i masterCellPosition, bool isOutGoingPortal[4], bool isCollidableWall[4], std::string filename) : defaultSize(cellSize),
-		relativeCoordinate(relativePosition),
-		gridCoordinate(masterCellPosition.x + relativePosition.x, masterCellPosition.y + relativePosition.y),
-		isOutgoingPortal(isOutGoingPortal),
-		isCollidableWall(isCollidableWall)
+		relativeCoordinate(relativePosition), parentCoordinate(masterCellPosition), gridCoordinate(masterCellPosition.x + relativePosition.x, masterCellPosition.y + relativePosition.y),
+		isOutgoingPortal(isOutGoingPortal), isCollidableWall(isCollidableWall)
 	{
+		parentKey = std::to_string(parentCoordinate.x) + std::to_string(parentCoordinate.y);
+		gridKey = std::to_string(gridCoordinate.x) + std::to_string(gridCoordinate.y);
 		neighborCell[N] = neighborCell[E] = neighborCell[S] = neighborCell[W] = nullptr;
 		portalCoordinates[N] = sf::Vector2f(gridCoordinate.x, gridCoordinate.y - 0.4f);
 		portalCoordinates[E] = sf::Vector2f(gridCoordinate.x + 0.4f, gridCoordinate.y);
@@ -50,7 +53,9 @@ struct Cell
 		// isOutgoingPortal[N] = isOutgoingPortal[E] = isOutgoingPortal[S] = isOutgoingPortal[W] = false;
 		// isCollidableWall[N] = isCollidableWall[E] = isCollidableWall[S] = isCollidableWall[W] = true;
 
-		rect.setFillColor(sf::Color(255,0,0,180));
+		rect.setFillColor(sf::Color::Transparent);
+		rect.setOutlineColor(sf::Color::Magenta);
+		rect.setOutlineThickness(-4.f);
 		rect.setSize((sf::Vector2f)defaultSize);
 		rect.setPosition(gridCoordinate.x * defaultSize.x + defaultSize.x / 2.f, gridCoordinate.y * defaultSize.y + defaultSize.y / 2.f);
 		rect.setOrigin(rect.getSize().x / 2.f, rect.getSize().y / 2.f);
@@ -86,7 +91,7 @@ struct Cell
 
 
 		//default destination Node position = center
-		destination = new Node(rect.getPosition(), { 0,0 });
+		destination = new Node(rect.getPosition(), { 0,0 }, getRelativeKey());
 	}
 
 	void addHamster(Hamster* hamster)
@@ -106,9 +111,9 @@ struct Cell
 		hamsters.erase(hamster->getName());
 	}
 
-	std::string getKey()
+	std::string getRelativeKey()
 	{
-		std::cout << "cells: " << std::to_string(relativeCoordinate.x) + std::to_string(relativeCoordinate.y) << std::endl;
+		//std::cout << "cells: " << std::to_string(relativeCoordinate.x) + std::to_string(relativeCoordinate.y) << std::endl;
 		return std::to_string(relativeCoordinate.x) + std::to_string(relativeCoordinate.y);
 	}
 
@@ -116,7 +121,6 @@ struct Cell
 	{
 		return bgSprite;
 	}
-
 
 	Node* getDestinationNode()
 	{
