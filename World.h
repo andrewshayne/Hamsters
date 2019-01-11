@@ -11,7 +11,7 @@
 #include <math.h>
 
 #include "imgui.h"
-#include "imgui-sfml.h"
+#include "imgui-SFML.h"
 
 #pragma once
 class World
@@ -104,6 +104,9 @@ public:
 	void handleScroll(float scrollDelta, const sf::Vector2i& mousePosition);
 	void displayHamsterInfo();
 	void purchaseHamster(std::string name);
+
+	//hamster interactions?
+	void invokeHamsterInteraction(Hamster* h1, Hamster* h2, int interactionId);
 };
 
 

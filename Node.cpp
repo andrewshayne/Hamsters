@@ -30,3 +30,8 @@ std::string Node::getKey()
 	std::cout << std::to_string(circle.getPosition().x) + std::to_string(circle.getPosition().y) << std::endl;
 	return std::to_string(circle.getPosition().x) + std::to_string(circle.getPosition().y);
 }
+
+Stats Node::getStats()
+{
+	return stats;
+}

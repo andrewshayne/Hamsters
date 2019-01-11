@@ -725,3 +725,24 @@ void World::purchaseHamster(std::string name)
 	currentlyHoveredHamster = hamsters[name];
 	isHoldingHamster = true;
 }
+
+void World::invokeHamsterInteraction(Hamster* h1, Hamster* h2, int interactionId)
+{
+	//call this function AFTER all necessary setup has been executed?
+
+	//tell both hamsters to interact (or prepare to interact?)
+	// - like set an INTERACT flag
+
+	//set their hamster ptrs to eachother and give them their interaction to perform
+	//have the ptr expire when the action is finished
+
+	h1->setInteractionPartner(h2);
+	h2->setInteractionPartner(h1);
+
+
+	//should temporarily make this a 2 second kiss?
+
+
+
+
+}

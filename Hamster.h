@@ -28,7 +28,7 @@ struct HamsterStats
 	int obesity;
 	int intelligence;
 	int evil;
-	
+
 	std::vector<std::string> factionNames; //list of factions this hamster is part of
 	std::unordered_map<std::string, int> affection; //<hamsterName,affectionScore> : shows how fond of each hamster this hamster is
 
@@ -59,6 +59,7 @@ private:
 	int pathCounter;
 	std::string roomKey;
 	std::vector<Node*> path;
+	Hamster* interactionPartner;
 
 	unsigned points; //this increments somehow, use to tell hamster's LVL
 	HamsterStats stats;
@@ -97,6 +98,8 @@ public:
 	void traverse(Node* start, Node* finish);
 	void setPath(std::vector<Node*> path);
 	void clearPath();
-	std::vector<Node*> getPath();
+	//std::vector<Node*> getPath();
+
+	void setInteractionPartner(Hamster* partner);
 };
 

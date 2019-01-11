@@ -27,6 +27,7 @@ Hamster::Hamster(sf::Vector2f position, std::string name) : points(1000), name(n
 
 	currentNode = nullptr;
 	currentDest = nullptr;
+	interactionPartner = nullptr;
 }
 
 //copy + new name constructor
@@ -54,6 +55,7 @@ Hamster::Hamster(Hamster* hamster, std::string name) : points(1000), name(name),
 
 	currentNode = nullptr;
 	currentDest = nullptr;
+	interactionPartner = nullptr;
 }
 
 
@@ -72,6 +74,9 @@ unsigned Hamster::getLVL() //figure out points later, probably adjust the number
 
 void Hamster::update(sf::Time dt, std::unordered_map<sf::Vector2f,Node*>)
 {
+
+	// TRAVERSE
+	//// put this into hamster traverse function?
 	if (path.size() > 0 && currentDest != nullptr && pathCounter >= 0) //traverse path if it exists
 	{
 		sf::Vector2f vector = { currentDest->circle.getPosition().x - hamsterRect.getPosition().x, currentDest->circle.getPosition().y - hamsterRect.getPosition().y };
@@ -96,6 +101,32 @@ void Hamster::update(sf::Time dt, std::unordered_map<sf::Vector2f,Node*>)
 		clearPath();
 	sprite.setPosition(hamsterRect.getPosition());
 	nameText.setPosition(hamsterRect.getPosition().x, hamsterRect.getPosition().y - 50.f); //update text pos to rect pos
+	////
+
+
+
+
+	// INTERACT
+	//// when a hamster has a ptr to another hamster (!nullptr), call interact functions?o
+
+	// mutual vs. 1-way interaction? (probably want mutual only... in World.cpp)
+
+	// figure out how to make hamster act if they should interact?
+	// - does it move toward the other hamster first?
+	// - or must it search for a hamster to interact with?
+
+
+	if(interactionPartner != nullptr)
+	{
+		//we have a partner at the moment, resolve this
+
+
+
+		//... at some point we must put interactionPartner back to nullptr...
+		//... probably after the interaction has indicated its completion some how
+		interactionPartner = nullptr;
+	}
+
 }
 
 std::string Hamster::getName()
@@ -186,7 +217,13 @@ void Hamster::clearPath()
 	currentDest = nullptr;
 }
 
-std::vector<Node*> Hamster::getPath()
+//std::vector<Node*> Hamster::getPath()
+//{
+//	return path;
+//}
+
+
+void Hamster::setInteractionPartner(Hamster* partner)
 {
-	return path;
+	interactionPartner = partner;
 }

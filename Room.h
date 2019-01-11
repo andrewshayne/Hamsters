@@ -126,6 +126,22 @@ struct Cell
 	{
 		return destination;
 	}
+
+	Stats getStatsAggregate() //for cell
+	{
+		Stats total;
+		//should there be some kind of wheight on the dest node?
+		total.food += destination->getStats().food;
+		total.water += destination->getStats().water;
+		total.fun += destination->getStats().fun;
+		for(int i = 0; i < waypoints.size(); i++)
+		{
+			total.food += waypoints[i]->getStats().food;
+			total.water += waypoints[i]->getStats().water;
+			total.fun += waypoints[i]->getStats().fun;
+		}
+		return total;
+	}
 };
 
 class Room

@@ -20,6 +20,14 @@ struct Stats
 	int water;	//"				water "
 	int fun;	//"				fun   "
 	std::unordered_map<std::string,int> factionTurfScore; //<factionName,turfScore> : shows how much turf every faction owns on this node
+
+	Stats()
+	{
+		food = 0;
+		water = 0;
+		fun = 0;
+		//...
+	}
 };
 
 class Node
@@ -32,6 +40,7 @@ public:
 	sf::CircleShape highlightCircle;
 	std::string roomKey;
 	std::vector<Node*> neighbors;
+	Stats stats;
 
 	//vector of pairs(?) of <Node*, OutgoingAnimationState&, ...>
 
@@ -39,5 +48,6 @@ public:
 	~Node();
 
 	std::string getKey();
+	Stats getStats();
 };
 

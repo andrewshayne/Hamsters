@@ -1,0 +1,4 @@
+- Need to make standard way of accessing entity pointers in World.cpp
+	- Hamster dict
+	- Node dict
+	- ...
