@@ -14,9 +14,38 @@
 #include "imgui-SFML.h"
 
 #pragma once
+
+struct Button
+{
+	sf::Font font;
+	sf::Text text;
+	sf::RectangleShape rect;
+
+	Button(std::string str, sf::Vector2f position)
+	{
+
+		font.loadFromFile("Fonts/BodoniFLF-Bold.ttf");
+		text.setFont(font);
+		text.setString(str);
+		text.setPosition(position);
+
+		rect.setFillColor(sf::Color::Red);
+		rect.setSize({ 120.f, 50.f });
+		rect.setOrigin(rect.getSize().x / 2.f, rect.getSize().y / 2.f);
+		rect.setPosition(position);
+	}
+
+	void draw(sf::RenderTarget& target)
+	{
+		target.draw(rect);
+		target.draw(text);
+	}
+};
 class World
 {
 private:
+
+	Button nextDayButton;
 	bool isAdminMode;
 	bool rightMouseButtonHeld;
 	sf::Vector2i initialMousePosition;
@@ -24,6 +53,7 @@ private:
 	int money;
 	sf::Text moneyText;
 
+	sf::Vector2i currentMousePos;
 	sf::RenderTarget& target;
 	sf::View worldView;
 	sf::View minimapView; //show where the camera is positioned/zoomed relative to the entire map
@@ -103,6 +133,7 @@ public:
 	void handleRightClick(bool isPressed, const sf::Vector2i& mousePosition);
 	void handleScroll(float scrollDelta, const sf::Vector2i& mousePosition);
 	void displayHamsterInfo();
+	void hideHamsterInfo();
 	void purchaseHamster(std::string name);
 
 	//hamster interactions?

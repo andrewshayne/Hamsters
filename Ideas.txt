@@ -28,4 +28,27 @@ http://www.art.net/~hopkins/Don/simcity/WillWright.html
 
 - game is an easter egg hunt (maybe another time)
 
--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1/12/19 ~~~THE NEW LIFE~~~
+- New idea for gameplay system
+	- Game is still divided into phases, dependant on hamster intelligence (or w/e)
+	- Player is simply required to set up the conditions for the next day/week (or w/e)
+	- This involves placing new purchased objects in/on their hamster world, adding new hamsters, etc.
+	- First main activity is to observe hamster behaviors (interactions with eachother, general stats, how they percieve their environment, etc. (turf!))
+	- Add lockable doors, these may become controlled by hamsters in future stages, so choose their placement wisely. (nessecitate purchasing by unfriendly hamsters that require separation?)

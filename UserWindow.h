@@ -31,9 +31,12 @@ class UserWindow
 private:
 	sf::RectangleShape windowRect;
 	sf::Vector2f relativePosition;
+	sf::Font font;
 public:
 	UserWindow(sf::Vector2f position, sf::Vector2f size);
+	std::unordered_map<int, sf::Drawable&> drawElements;
 
+	sf::Font& getFont();
 	sf::RectangleShape& getWindowRect();
 	std::unordered_map<std::string, WindowComponent*> components;
 	sf::Vector2f getRelativePosition();

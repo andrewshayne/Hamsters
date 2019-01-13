@@ -28,8 +28,9 @@ private:
 	void guiUpdate();
 	void render();
 
-	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-	void handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::Vector2i mousePosition);
+	// why was this even here?
+	//void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+	//void handlePlayerInput(sf::Mouse::Button button, bool isPressed, sf::Vector2i mousePosition);
 
 public:
 	Game(void);

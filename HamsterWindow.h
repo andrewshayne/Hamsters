@@ -7,6 +7,8 @@ private:
 	Hamster* selectedHamster;
 
 	sf::Text hamsterName;
+
+
 	std::vector<sf::Text> hamsterStatsText;
 public:
 	HamsterWindow(sf::Vector2f position, sf::Vector2f size);

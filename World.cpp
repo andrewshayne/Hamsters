@@ -3,7 +3,7 @@
 
 World::World(sf::RenderTarget& outputTarget) : target(outputTarget), worldView(outputTarget.getDefaultView()), isAdminMode(false), isHoldingHamster(false),
 	currentlyHoveredHamster(nullptr), currentlyHoveredCell(nullptr), currentlyHoveredPurchasable(nullptr), isHoveringStoreWindow(false), isHoveringHamsterWindow(false),
-	rightMouseButtonHeld(false), initialMousePosition({0,0})
+	rightMouseButtonHeld(false), initialMousePosition({ 0,0 }), currentMousePos({ 0,0 }), nextDayButton("next day", {400.f, 10.f})
 {
 	srand(time(NULL));
 	if (!backgroundImage.loadFromFile("Images/trophies.png"))
@@ -105,6 +105,11 @@ int randN(int n)
 
 void World::update(sf::Time dt, const sf::Vector2i& mousePos)
 {
+	currentMousePos = mousePos;
+
+	//check mouse hover over buttons...
+	//checkMouseHover(mousePos, nextDayButton.rect); //combine this with mouse click to actually do something
+
 	sf::Vector2i mousePosition = (sf::Vector2i)target.mapPixelToCoords(mousePos);
 	target.setView(overlayView);
 	sf::Vector2i mousePosOverlay = (sf::Vector2i)target.mapPixelToCoords(mousePos);
@@ -214,6 +219,11 @@ void World::update(sf::Time dt, const sf::Vector2i& mousePos)
 	else
 	{
 	}
+
+	if (isHoldingHamster && currentlyHoveredHamster != nullptr)
+		displayHamsterInfo();
+	else
+		hideHamsterInfo();
 }
 
 void World::guiUpdate()
@@ -291,12 +301,9 @@ void World::draw()
 					it_cell->second->portalRects[k].setFillColor(sf::Color::Green);
 				target.draw(it_cell->second->portalRects[k]);
 			}
-			if (checkMouseHover((sf::Vector2i)target.mapPixelToCoords(sf::Mouse::getPosition()), it_cell->second->getDestinationNode()->circle))
-				target.draw(it_cell->second->getDestinationNode()->circle);
-			if (checkMouseHover((sf::Vector2i)target.mapPixelToCoords(sf::Mouse::getPosition()), it_cell->second->getDestinationNode()->highlightCircle))
-			{
+			target.draw(it_cell->second->getDestinationNode()->circle);
+			if (checkMouseHover(currentMousePos, it_cell->second->getDestinationNode()->highlightCircle))
 				target.draw(it_cell->second->getDestinationNode()->highlightCircle);
-			}
 
 			it_cell->second->hamsterCountText.setString(std::to_string(it_cell->second->hamsters.size()));
 			target.draw(it_cell->second->hamsterCountText);
@@ -310,22 +317,34 @@ void World::draw()
 
 
 //////  DISGUSTING
-//////
-////// 	//VIEW - overlay
-////// 	target.setView(overlayView);
-////// 	target.draw(overlay->getHamsterWindow()->getWindowRect());
-////// 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getHamsterWindow()->components.begin(); it != overlay->getHamsterWindow()->components.end(); ++it)
-////// 	{
-////// 		target.draw(it->second->title);
-////// 		if(overlay->getHamsterWindow()->getSelectedHamster() != nullptr) //if hamster is selected, draw stats
-////// 			target.draw(overlay->getHamsterWindow()->getSelectedHamster()->getNameText()); //iterate over hamster's stats (should they be ordered?)
-////// 	}
-////// 	target.draw(overlay->getStoreWindow()->getWindowRect());
-////// 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getStoreWindow()->components.begin(); it != overlay->getStoreWindow()->components.end(); ++it)
-////// 		target.draw(it->second->title);
-////// 	//purchasables on store window INSTEAD OF the component...
-////// 	for (std::vector<Purchasable>::const_iterator it = overlay->getStoreWindow()->getPurchasableHamsters().begin(); it != overlay->getStoreWindow()->getPurchasableHamsters().end(); ++it)
-////// 		drawHamster((Hamster*)it->purchasableObject, false);
+
+ 	//VIEW - overlay
+	target.setView(overlayView);
+
+	// hamster info window
+ 	target.draw(overlay->getHamsterWindow()->getWindowRect());
+ 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getHamsterWindow()->components.begin(); it != overlay->getHamsterWindow()->components.end(); ++it)
+ 	{
+ 		target.draw(it->second->title);
+		if (overlay->getHamsterWindow()->getSelectedHamster() != nullptr) //if hamster is selected, draw stats
+		{
+			//target.draw()
+			target.draw(overlay->getHamsterWindow()->getSelectedHamster()->getNameText()); //iterate over hamster's stats (should they be ordered?)
+ 			for (std::unordered_map<int, sf::Drawable&>::iterator it_elem = overlay->getHamsterWindow()->drawElements.begin(); it_elem != overlay->getHamsterWindow()->drawElements.end(); ++it_elem)
+			{
+				//draw hamster window's elements using it's relative coords??
+				target.draw(it_elem->second);
+			}
+		}
+ 	}
+
+	// store window
+ 	target.draw(overlay->getStoreWindow()->getWindowRect());
+ 	for (std::unordered_map<std::string, WindowComponent*>::iterator it = overlay->getStoreWindow()->components.begin(); it != overlay->getStoreWindow()->components.end(); ++it)
+ 		target.draw(it->second->title);
+ 	//purchasables on store window INSTEAD OF the component...
+ 	for (std::vector<Purchasable>::const_iterator it = overlay->getStoreWindow()->getPurchasableHamsters().begin(); it != overlay->getStoreWindow()->getPurchasableHamsters().end(); ++it)
+ 		drawHamster((Hamster*)it->purchasableObject, false);
 
 
 	target.draw(moneyText);
@@ -351,6 +370,8 @@ void World::draw()
 	target.setView(worldView);
 	if(isHoldingHamster)
 		drawHamster(currentlyHoveredHamster, true);
+
+	nextDayButton.draw(target);
 
 	if(isAdminMode) //draw admin-only info here
 	{
@@ -378,10 +399,10 @@ std::vector<Node*> World::reconstructPath(std::unordered_map<Node*, Node*> cameF
 		totalPath.push_back(current);
 	}
 	//std::cout << "path:\n";
-	for (int i = 0; i < totalPath.size(); i++)
-	{
+	//for (int i = 0; i < totalPath.size(); i++)
+	//{
 		//std::cout << "node - " << std::to_string(totalPath.at(i)->circle.getPosition().x) + ", " + std::to_string(totalPath.at(i)->circle.getPosition().y) << std::endl;
-	}
+	//}
 	//std::cout << std::endl;
 	return totalPath;
 }
@@ -525,8 +546,6 @@ void World::zoomCamera(float zoom, const sf::Vector2i& mousePosition)
 {
 	sf::Mouse::getPosition();
 	worldView.zoom(zoom);
-
-
 	correctCamera();
 }
 
@@ -631,7 +650,7 @@ bool World::checkMouseHover(const sf::Vector2i& mousePosition, sf::RectangleShap
 
 bool World::checkMouseHover(const sf::Vector2i& mousePosition, sf::CircleShape& circle)
 {
-	if (  sqrt((mousePosition.x - circle.getPosition().x) * (mousePosition.x - circle.getPosition().x)
+	if (sqrt((mousePosition.x - circle.getPosition().x) * (mousePosition.x - circle.getPosition().x)
 		+ (mousePosition.y - circle.getPosition().y) * (mousePosition.y - circle.getPosition().y)) < circle.getRadius())
 		return true;
 	return false;
@@ -709,7 +728,14 @@ void World::displayHamsterInfo()
 {
 	//when hamster is hovered or held, display its info in a panel!
 	overlay->getHamsterWindow()->setSelectedHamster(currentlyHoveredHamster);
-	overlay->getHamsterWindow()->setHamsterInfo();
+
+	//don't do this... could get null->getName()
+	//overlay->getHamsterWindow()->setHamsterInfo();
+}
+
+void World::hideHamsterInfo()
+{
+	overlay->getHamsterWindow()->setSelectedHamster(nullptr);
 }
 
 void World::purchaseHamster(std::string name)
