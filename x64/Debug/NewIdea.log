@@ -1,18 +1,7 @@
-﻿  World.cpp
+﻿  MenuState.cpp
 d:\documents\visual studio 2015\projects\newidea\newidea\room.h(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\documents\visual studio 2015\projects\newidea\newidea\room.h(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\documents\visual studio 2015\projects\newidea\newidea\room.h(51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\documents\visual studio 2015\projects\newidea\newidea\room.h(52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(8): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(38): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(41): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(82): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(88): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(93): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(136): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(138): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(271): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-d:\documents\visual studio 2015\projects\newidea\newidea\world.cpp(468): warning C4715: 'World::A_Star': not all control paths return a value
   NewIdea.vcxproj -> d:\documents\visual studio 2015\Projects\NewIdea\x64\Debug\NewIdea.exe
   NewIdea.vcxproj -> d:\documents\visual studio 2015\Projects\NewIdea\x64\Debug\NewIdea.pdb (Full PDB)
