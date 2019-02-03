@@ -10,6 +10,7 @@ using namespace std;
 //#include "World.h"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Game
 {

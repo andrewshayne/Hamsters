@@ -3,6 +3,7 @@
 
 const float Hamster::scale = 0.2f;
 
+//Old method... Necessary for store components
 Hamster::Hamster(sf::Vector2f position, std::string name) : points(1000), name(name), pathCounter(-1), isPathing(false), roomKey(""), updateRoomKey(false)
 {
 	hamsterRect.setSize(sf::Vector2f(320.f * scale, 320.f * scale));
@@ -23,6 +24,34 @@ Hamster::Hamster(sf::Vector2f position, std::string name) : points(1000), name(n
 	sprite.setScale(scale, scale);
 	sprite.setTexture(hamsterTexture);
 	sprite.setPosition(position);
+	sprite.setOrigin(sprite.getTextureRect().width / 2.f, sprite.getTextureRect().height / 2.f);
+
+	currentNode = nullptr;
+	currentDest = nullptr;
+	interactionPartner = nullptr;
+}
+
+Hamster::Hamster() : points(1000), pathCounter(-1), isPathing(false), roomKey(""), updateRoomKey(false)
+{
+	std::cout << "in default ham constructor!\n";
+	hamsterRect.setSize(sf::Vector2f(320.f * scale, 320.f * scale));
+	hamsterRect.setPosition({posX,posY});
+	hamsterRect.setOrigin(hamsterRect.getSize().x / 2, hamsterRect.getSize().x / 2);
+	hamsterRect.setFillColor(sf::Color::Yellow);
+
+	font.loadFromFile("Fonts/BodoniFLF-Bold.ttf");
+	nameText.setString(name);
+	nameText.setFont(font);
+	nameText.setCharacterSize(18.f);
+	nameText.setPosition(sf::Vector2f(hamsterRect.getPosition().x, hamsterRect.getPosition().y - 50.f));
+	nameText.setOutlineThickness(2.f);
+	nameText.setOutlineColor(sf::Color::Black);
+	nameText.setOrigin(nameText.getLocalBounds().width / 2.f, 0.f);
+
+	hamsterTexture.loadFromFile("Images/hamster2.png");
+	sprite.setScale(scale, scale);
+	sprite.setTexture(hamsterTexture);
+	sprite.setPosition({posX,posY});
 	sprite.setOrigin(sprite.getTextureRect().width / 2.f, sprite.getTextureRect().height / 2.f);
 
 	currentNode = nullptr;

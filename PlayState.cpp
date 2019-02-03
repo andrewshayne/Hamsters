@@ -11,6 +11,13 @@ PlayState::PlayState(Game &game, sf::RenderWindow &window) : GameState(game, win
 	stateText.setString("Playing - Hit esc to pause");
 	//stateText.setString("Playing - Hit esc to pause\n\tM - toggle map mode");
 	stateText.setFont(font);
+
+
+
+	//load world from file
+	std::ifstream ifs("saveFile.txt");
+	boost::archive::text_iarchive ia(ifs);
+	ia >> world;
 }
 
 

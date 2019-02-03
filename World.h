@@ -44,6 +44,16 @@ struct Button
 class World
 {
 private:
+	friend class boost::serialization::access;
+	// When the class Archive corresponds to an output archive, the
+	// & operator is defined similar to <<.  Likewise, when the class Archive
+	// is a type of input archive the & operator is defined similar to >>.
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version)
+	{
+		ar & money;
+		//ar & hamsters;
+	}
 
 	Button nextDayButton;
 	bool isAdminMode;
@@ -93,6 +103,9 @@ private:
 public:
 	explicit World(sf::RenderTarget& outputTarget);
 	~World();
+
+	void readSaveFile(std::string fileName); //and pass params to obj constructors
+	void writeSaveFile(std::string fileName);
 
 	std::unordered_map<sf::Vector2f,Node*> nodes;
 	std::vector<Node*> reconstructPath(std::unordered_map<Node*, Node*> cameFrom, Node* current);

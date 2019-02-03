@@ -63,3 +63,33 @@ Should I make an AABB class for everything that has a rect??? This would solve p
 	- Overlay -> UserWindow -> WindowComponent
 
 - understand that cells are ONLY graphical, laying out rooms on a grid. Rooms have nodes, which can be anywhere within the room, but they are not importantly attached to cells!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Parse files when initializing World, pass in the parsed values to respective files. (Room, etc.)
+- Do this in World.cpp (World Constructor)
+
+
+
+
+- The current GUI is really frustratingly annoying.
+	It needs to be refactored due to unessecary complexity.
+- SO, put all gui objects (as structs!)  in 1 file.
+	This allows us to pass in all values to display into 1 class.
+- Further reasoning is that GUI elements don't need to know
+	what eachother are doing. They should act independently.
+
+
+- Realize that every new day/every time you leave the game, you have to deconstruct all objects to avoid dangling ptrs!!!

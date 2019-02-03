@@ -58,15 +58,23 @@ World::World(sf::RenderTarget& outputTarget) : target(outputTarget), worldView(o
 		}
 	}
 
-	Hamster* hamster1 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamuel");
-	Hamster* hamster2 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamson");
-	Hamster* hamster3 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamtaro");
+	//Hamster* hamster1 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamuel");
+	//Hamster* hamster2 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamson");
+	//Hamster* hamster3 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamtaro");
 
-	Hamster* hamster4 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamtaro");
+	//Hamster* hamster4 = new Hamster(sf::Vector2f(0.f, 0.f), "Hamtaro");
 
-	room1->getCells().at("00")->addHamster(hamster1);
-	room1->getCells().at("10")->addHamster(hamster2);
-	room2->getCells().at("01")->addHamster(hamster3);
+	//room1->getCells().at("00")->addHamster(hamster1);
+	//room1->getCells().at("10")->addHamster(hamster2);
+	//room2->getCells().at("01")->addHamster(hamster3);
+
+
+	//put all hamsters from file in room
+	for (std::unordered_map<std::string, Hamster*>::iterator it_hamster = hamsters.begin(); it_hamster != hamsters.end(); ++it_hamster)
+	{
+		std::cout << "Placed " << it_hamster->second->getName() << "in room\n";
+		room1->getCells().at("00")->addHamster(it_hamster->second);
+	}
 
 	addRoom(room1);
 	addRoom(room2);
@@ -102,6 +110,30 @@ int randN(int n)
 {
 	return rand() % n;
 }
+
+
+void World::readSaveFile(std::string fileName)
+{
+	//do parsing here...
+
+
+	//pass in params to obj's
+	//for(int i = 0; i < hamsters.size(); i++)
+	//{
+
+	//}
+
+
+	//- Rooms
+	// - Cells
+	//   - Nodes
+	//- Hamsters
+}
+
+void World::writeSaveFile(std::string fileName)
+{
+}
+
 
 void World::update(sf::Time dt, const sf::Vector2i& mousePos)
 {
@@ -596,7 +628,7 @@ void World::connectCells()
 					{
 						grid[it_cell->second->gridCoordinate.x][it_cell->second->gridCoordinate.y]->destination->neighbors
 							.push_back(grid[it_cell->second->gridCoordinate.x][it_cell->second->gridCoordinate.y]->neighborCell[i]->destination);
-						std::cout << "added neighbor node\n";
+						//std::cout << "added neighbor node\n";
 					}
 				}
 			}
@@ -658,6 +690,7 @@ bool World::checkMouseHover(const sf::Vector2i& mousePosition, sf::CircleShape& 
 
 void World::handleLeftClick(bool isPressed, const sf::Vector2i& mousePosition)
 {
+	std::cout << "money: " << money << std::endl;
 	if (isPressed)
 	{
 		if (isHoldingHamster && isCursorHoveringWindow()) return;
@@ -750,6 +783,13 @@ void World::purchaseHamster(std::string name)
 	hamsters[name] = new Hamster((Hamster*)currentlyHoveredPurchasable->purchasableObject, name);
 	currentlyHoveredHamster = hamsters[name];
 	isHoldingHamster = true;
+
+	//TESTING
+	//on hamster purchase, write to file
+	std::ofstream ofs("saveFile.txt");
+	boost::archive::text_oarchive oa(ofs);
+	oa << this;
+	std::cout << "wrote world to file\n";
 }
 
 void World::invokeHamsterInteraction(Hamster* h1, Hamster* h2, int interactionId)

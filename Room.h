@@ -1,6 +1,6 @@
 #include <unordered_map>
 
-#include "Hamster.h"
+#include "Hamster.h" //Includes all the important boost stuff
 #include <iostream>
 
 #pragma once
@@ -142,12 +142,29 @@ struct Cell
 		}
 		return total;
 	}
+
+	template <typename Archive>
+	void serialize(Archive& ar, const unsigned int version)
+	{
+	  	//ar & m_character;
+		ar & hamsters;
+	}
 };
 
 class Room
 {
 	//when dragging and dropping onto grid, display a line to the current nearest spot it will lock onto!
 private:
+	friend class boost::serialization::access;
+	// When the class Archive corresponds to an output archive, the
+	// & operator is defined similar to <<.  Likewise, when the class Archive
+	// is a type of input archive the & operator is defined similar to >>.
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version)
+	{
+		//ar & stats;
+	}
+
 	sf::Vector2i masterCellPosition;
 	sf::Vector2f dimensions;
 	std::unordered_map<std::string,Cell*> cells; //first cell is always the master cell

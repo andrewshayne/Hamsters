@@ -5,6 +5,16 @@
 #include <math.h>
 #include <iostream>
 
+
+#include <fstream>
+
+// include headers that implement a archive in simple text format
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/unordered_map.hpp>
+
+
 #pragma once
 
 struct HamsterStats
@@ -45,16 +55,42 @@ struct HamsterStats
 		evil = 0;
 	}
 
+	template <typename Archive>
+	void serialize(Archive& ar, const unsigned int version)
+	{
+	  ar & hunger;
+	  ar & thirst;
+	  ar & happiness;
+	  ar & obesity;
+	  ar & intelligence;
+	  ar & evil;
+	}
 };
 
 class Hamster
 {
 private:
+	friend class boost::serialization::access;
+	// When the class Archive corresponds to an output archive, the
+	// & operator is defined similar to <<.  Likewise, when the class Archive
+	// is a type of input archive the & operator is defined similar to >>.
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version)
+	{
+		//posX = sprite.getPosition().x;
+		//posY = sprite.getPosition().y;
+		ar & posX; //need to get this from its texture coord... ALSO need to save it's texture, etc.
+		ar & posY; //need to get this from its texture coord... ALSO need to save it's texture, etc.
+		ar & stats;
+	}
+
 	Node* currentNode;
 	Node* currentDest;
 	static const float scale;
 	sf::Texture hamsterTexture;
 	sf::Sprite sprite;
+	float posX; //only used to indicate save/load position?
+	float posY; //only used to indicate save/load position?
 	bool isPathing;
 	int pathCounter;
 	std::string roomKey;
@@ -76,8 +112,9 @@ private:
 public:
 	bool updateRoomKey;
 	sf::VertexArray vta;
-	Hamster(sf::Vector2f position, std::string name);
-	Hamster(Hamster* hamster, std::string name);
+	Hamster(sf::Vector2f position, std::string name); //used in store components
+	Hamster(Hamster* hamster, std::string name); //copy constructor (purchase)
+	Hamster(); //default constructor for file read-in
 	~Hamster();
 	void update(sf::Time dt, std::unordered_map<sf::Vector2f,Node*>);
 

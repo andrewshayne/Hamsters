@@ -73,6 +73,16 @@ void MenuState::draw()
 	window.clear();
 	window.draw(stateText);
 
+	sf::Text newFileText;
+	newFileText.setFont(font);
+	newFileText.setString("New File");
+	newFileText.setCharacterSize(20);
+	newFileText.setPosition({ 100.f, 100.f + (-1.f * 40.f) });
+	newFileText.setFillColor(sf::Color::White);
+	window.draw(newFileText);
+
+
+	//NO NO NO NO, create the text in the constructor!! only display in the loop, dummy
 	for (int i = 0; i < saveFiles.size(); i++)
 	{
 		sf::Text* text = new sf::Text();
